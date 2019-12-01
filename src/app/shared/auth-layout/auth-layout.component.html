@@ -1,1 +1,17 @@
-<p>auth-layout works!</p>
+<div fxLayout="column">
+  <nav fxFlex>
+    <mat-toolbar>
+
+      <div class="navbar-container">
+        <button class="navbar-link" routerLink="/" mat-button>Home</button>
+        <button class="navbar-link" mat-button>About Us</button>
+
+      </div>
+    </mat-toolbar>
+  </nav>
+
+  <div fxFlex>
+    <main class="main-content" fxFlex="100%;">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
