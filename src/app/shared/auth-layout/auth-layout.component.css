@@ -1,0 +1,12 @@
+.wrapper{
+  margin-top: 25px;
+}
+
+mat-toolbar {
+  background-color: #b6e0c8;
+}
+
+.navbar-link {
+  font-size: 30px;
+  color: black;
+}
