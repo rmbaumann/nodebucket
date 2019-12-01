@@ -29,11 +29,3 @@
   padding-left: 100px;
   letter-spacing: 3px;
 }
-
-.bu-link {
-  text-decoration: none;
-}
-
-.bu-link:hover {
-  text-decoration: underline;
-}
