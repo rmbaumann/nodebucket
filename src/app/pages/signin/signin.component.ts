@@ -37,27 +37,26 @@ export class SigninComponent implements OnInit {
   }
 
 // Details of login credentials
-  login() {
-    const empId = this.form.controls['empId'].value;
-
-    // use empId to login
-    console.log(empId);
-
-    // Call the API
-    this.http.get('/api/employees/' + empId).subscribe(res => {
-
-      // True redirects user to home
-      if (res) {
-        this.cookieService.set('session_user', empId, 1);
-        this.router.navigate(['/']);
-      }
-
-      // False redirect to error message
-      else {
-        this.errorMessage = 'The Employee ID you entered is not found, please try again.';
-      }
-    });
-  }
+login() {
+  const empId = this.form.controls['empId'].value;
+  console.log(empId);
+  // Call API
+  this.http.get('/api/employees/' + empId).subscribe(res => {
+    /**
+     * If true redirect to home page.
+     */
+    if (res) {
+      this.cookieService.set('session_user', empId, 1);
+      this.router.navigate(['/']);
+    }
+    /**
+     * Else display error message
+     */
+    else {
+      this.errorMessage = 'The Employee ID you entered is not found, please try again.';
+    }
+  });
+}
 }
 
 // End Program
