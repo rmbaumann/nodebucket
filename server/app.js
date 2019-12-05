@@ -53,6 +53,57 @@ mongoose.connect(conn, {
  * API(s)
  */
 
+
+ /**
+  * FindAllTasks
+  */
+
+  app.get('./api/employees/:empId/tasks', function (req, res, next) {
+    Employee.findOne({'empId': req.params.empId}, 'empId todo done', function(err, tasks) {
+      if (err) {
+        console.log(err);
+        return next(err);
+      } else {
+        console.log(tasks);
+        res.json(tasks);
+      }
+    })
+  });
+
+
+  /**
+   * CreateTask
+   */
+
+   app.post('/api/employees/:empId/tasks', function(req, res, next) {
+     Employee.findOne({'empId': req.params.empId}, function(err, employee) {
+       if (err) {
+         console.log(err);
+         return next(err);
+        } else {
+          console.log(tasks);
+
+          const task = {
+            text: req.body.text
+          };
+
+          employee.todo.push(task);
+          employee.save(function(err, employee) {
+            if (err) {
+              console.log(err);
+              return next(err);
+            } else {
+              console.log(employee);
+              res.json(employee);
+            }
+          })
+        }
+      })
+    });
+
+
+
+
  /**
   * FindEmployeeById
   */
@@ -74,3 +125,33 @@ mongoose.connect(conn, {
 http.createServer(app).listen(port, function() {
   console.log(`Application started and listening on port: ${port}`)
 }); // end http create server function
+
+/**
+ * UpdateTasks
+ */
+app.put('/api/employees/:empId/tasks', function(req, res, next) {
+  Employee.findOne({'empId': req.params.empId}, function(err, employee) {
+    if (err) {
+      console.log(err);
+      return next(err);
+    } else {
+      console.log(employee);
+
+      employee.set({
+        todo: req.body.todo,
+        done: req.body.done
+      });
+
+      employee.save(function(err, employee) { // Save the actual record
+        if (err) {
+          console.log(err); // writes error to console
+          return next(err);
+        } else {
+          console.log(employee);
+          res.json(employee);
+        }
+      })
+    }
+  })
+});
+// End Program
