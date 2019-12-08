@@ -71,6 +71,7 @@ mongoose.connect(conn, {
   });
 
 
+
   /**
    * CreateTask
    */
@@ -119,12 +120,6 @@ mongoose.connect(conn, {
    })
  });
 
-/**
- * Create and start server
- */
-http.createServer(app).listen(port, function() {
-  console.log(`Application started and listening on port: ${port}`)
-}); // end http create server function
 
 /**
  * UpdateTasks
@@ -154,4 +149,70 @@ app.put('/api/employees/:empId/tasks', function(req, res, next) {
     }
   })
 });
+
+/**
+ * DeleteTask
+ */
+app.delete('/api/employees/:empId/tasks/:taskId', function(req, res, next) {
+  Employee.findOne({'empId': req.params.empId}, function(err, employee) {
+    if (err) {
+      console.log(err);
+      return next(err);
+    } else {
+      console.log(employee)
+
+      const todoItem = employee.todo.find(item => item._id.toString() === req.params.taskId);
+      const doneItem = employee.done.find(item => item._id.toString() === req.params.taskId);
+
+      /**
+       * If the todoItem is not null, then we know the item being deleted is todo
+       */
+      if (todoItem) {
+        employee.todo.id(todoItem._id).remove();
+        employee.save(function(err, emp1) {
+          if (err) {
+            console.log(err);
+            return next(err);
+          } else {
+            console.log(emp1);
+            res.json(emp1);
+          }
+        })
+      } else if (doneItem) {
+        /**
+         * If the doneItem is not null, then the item being deleted is a doneTask
+         */
+        employee.done.id(doneItem._id).remove();
+        employee.save(function(err, emp2) {
+          if (err) {
+            console.log(err);
+            return next(err);
+          } else {
+            console.log(emp2);
+            res.json(emp2);
+          }
+        })
+      } else {
+        /** Otherwise the item doesn't belong to either */
+        console.log('Unable to locate task: ${req.params.taskId}');
+        res.status(200).send({
+          'type': 'warning',
+          'text': 'Unable to locate task: ${req.params.taskId}'
+        })
+      }
+    }
+  })
+});
+
+/**
+ * Create & Start Server
+ */
+http.createServer(app).listen(port, function() {
+  console.log('Application started and listening on port: ${port}')
+});
+// end server
+
+
+
+
 // End Program
