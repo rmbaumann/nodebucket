@@ -58,7 +58,7 @@ mongoose.connect(conn, {
   * FindAllTasks
   */
 
-  app.get('./api/employees/:empId/tasks', function (req, res, next) {
+  app.get('/api/employees/:empId/tasks', function (req, res, next) {
     Employee.findOne({'empId': req.params.empId}, 'empId todo done', function(err, tasks) {
       if (err) {
         console.log(err);
@@ -82,7 +82,7 @@ mongoose.connect(conn, {
          console.log(err);
          return next(err);
         } else {
-          console.log(tasks);
+          console.log(employee);
 
           const task = {
             text: req.body.text
