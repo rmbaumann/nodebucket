@@ -25,8 +25,10 @@ import { Router } from '@angular/router';
 // Export the class
 export class BaseLayoutComponent implements OnInit {
   year: number = Date.now();
+  sessionUser: any;
 
   constructor(private cookieService: CookieService, private router: Router) {
+    this.sessionUser = this.cookieService.get('session_user');
 
   }
 
