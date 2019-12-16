@@ -1,0 +1,31 @@
+<!--
+=============================================
+; Title: nodebucket
+; Author: Reva Baumann
+; Date: 1 December 2019
+; Modified by: Reva Baumann
+; Description: nodebucket task management system
+;============================================
+-->
+
+
+<h2 mat-dialog-title>Create new task</h2>
+
+<mat-dialog-content [formGroup]="form">
+
+    <mat-form-field>
+        <input matInput placeholder="Name" formControlName="text" />
+    </mat-form-field>
+
+</mat-dialog-content>
+
+<div fxLayout="column" fxLayoutGap="5px">
+    <small *ngIf="form.controls['text'].hasError('minlength') && form.controls['text'].touched">You must enter at least 3 characters...</small>
+</div>
+
+<mat-dialog-actions align="end">
+
+    <button mat-button (click)="close()">Close</button>
+    <button mat-button [disabled]="!form.valid" (click)="submit()">Save</button>
+
+</mat-dialog-actions>
