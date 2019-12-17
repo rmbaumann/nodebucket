@@ -20,9 +20,8 @@
 </mat-dialog-content>
 
 <div fxLayout="column" fxLayoutGap="5px">
-    <small *ngIf="form.controls['text'].hasError('minlength') && form.controls['text'].touched">You must enter at least 3 characters...</small>
+    <small *ngIf="form.controls['text'].hasError('minLength') && form.controls['text'].touched">You must enter at least 3 characters...</small>
 </div>
-
 <mat-dialog-actions align="end">
 
     <button mat-button (click)="close()">Close</button>
