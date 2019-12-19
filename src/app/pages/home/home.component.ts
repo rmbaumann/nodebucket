@@ -18,7 +18,6 @@ import { HttpClient } from '@angular/common/http';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { TaskCreateDialogComponent } from '../task-create-dialog/task-create-dialog.component';
 
-
 // List detals of component
 @Component({
   selector: 'app-home',
@@ -30,7 +29,6 @@ export class HomeComponent implements OnInit {
   tasks: any;
   todo: any;
   done: any;
-
 
 
   /**
