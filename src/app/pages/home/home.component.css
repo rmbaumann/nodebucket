@@ -1,0 +1,12 @@
+.title{
+  text-align: center;
+}
+
+.tasks-container{
+  width: 100%;
+  margin: 0 auto;
+}
+
+.cdk-drag-preview{
+  box-sizing: border-box;
+}
